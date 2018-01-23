@@ -53,6 +53,14 @@ unsigned int act_types_nr[] = {FILE_ACTIVITY_ULL_NR, FILE_ACTIVITY_UL_NR, FILE_A
 unsigned int rec_types_nr[] = {RECORD_HEADER_ULL_NR, RECORD_HEADER_UL_NR, RECORD_HEADER_U_NR};
 unsigned int nr_types_nr[]  = {0, 0, 1};
 
+#if __GNUC___ < 4 || \
+	(__GNUC__ == 4 && (__GNUC_MINOR__ < 8))
+unsigned short __builtin_bswap16(unsigned short val)
+{
+	return (val<<8)|(val>>8);
+}
+#endif
+
 /*
  ***************************************************************************
  * Allocate structures.
